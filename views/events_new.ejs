@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            color: #333;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background: #1d1d1d;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+        main {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .mySlides {
+            display: none;
+            width: 100%;
+        }
+        .mySlides img {
+            width: 100%;
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+        @keyframes fade {
+            from {opacity: .4}
+            to {opacity: 1}
+        }
+        #event-details {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .event-content {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .event-content:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        .event-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-light.png'), linear-gradient(to bottom right, #f8f8f8, #eaeaea);
+            z-index: -1;
+            border-radius: 20px;
+        }
+        .event-text {
+            flex: 1;
+            padding: 20px;
+            text-align: left;
+        }
+        .event-text h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #AD8B3A;
+        }
+        .event-text p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .event-text strong {
+            color: #AD8B3A;
+        }
+        .event-text button {
+            background: #AD8B3A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .event-text button:hover {
+            background: #926e2e;
+        }
+        .card {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+        }
+        .thumb {
+            width: 100%;
+            height: 200px; /* Set a fixed height */
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: rotateY(0deg);
+            transition: transform 0.6s;
+        }
+        .card:hover .thumb {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+
+    <main>
+        <section class="intro">
+            <div class="slideshow-container">
+                <div class="mySlides">
+                    <img src="/images/mainevent1.png" alt="Main Event 1">
+                </div>
+                <div class="mySlides">
+                    <img src="/images/mainevent2.png" alt="Main Event 2">
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </section>
+        <section id="event-details">
+            <h2>Event Details</h2>
+            <div id="events-container">
+                <% events.forEach((event, index) => { %>
+                    <% 
+                        let eventImage = '';
+                        if (event.name === "Gourmet Event") {
+                            eventImage = "eventgourmet.png";
+                        } else if (event.name === "Starlit Poolside Movie") {
+                            eventImage = "eventstarlitpoolsidemovie.png";
+                        } else if (event.name === "Swim with Dolphins") {
+                            eventImage = "eventswimwithdolphines.png";
+                        } else if (event.name === "Sunset Yoga") {
+                            eventImage = "eventsunsetyoga.png";
+                        } else {
+                            eventImage = "eventdefault.png";
+                        }
+                    %>
+                    <div class="event-content">
+                        <% if (index % 2 === 0) { %>
+                            <div class="event-text">
+                                <h3><%= event.name %></h3>
+                                <p>Join us on <%= event.event_date %> for an unforgettable experience. The event will be held at our beautiful venue, offering a range of activities and entertainment for all ages. Don't miss out on the fun and excitement!</p>
+                                <p>We are excited to bring you this unique opportunity to connect with others and enjoy a day full of joy and adventure. Our team has worked hard to organize this event, ensuring that it will be a memorable experience for everyone involved.</p>
+                                <p>Whether you are looking to relax and unwind, or seeking a thrilling adventure, this event has something for everyone. We look forward to seeing you there!</p>
+                                <p><strong>Date:</strong> <%= event.event_date %></p>
+                                <p><strong>Available Tickets:</strong> <%= event.available_tickets %></p>
+                                <form action="/book-event/<%= event.id %>" method="GET">
+                                    <button type="submit">Book Event</button>
+                                </form>
+                            </div>
+                            <div class="card">
+                                <div class="thumb" style="background-image: url('/images/<%= eventImage %>');">
+                                    <h2><%= event.name %></h2>
+                                </div>
+                            </div>
+                        <% } else { %>
+                            <div class="card">
+                                <div class="thumb" style="background-image: url('/images/<%= eventImage %>');">
+                                    <h2><%= event.name %></h2>
+                                </div>
+                            </div>
+                            <div class="event-text">
+                                <h3><%= event.name %></h3>
+                                <p>Join us on <%= event.event_date %> for an unforgettable experience. The event will be held at our beautiful venue, offering a range of activities and entertainment for all ages. Don't miss out on the fun and excitement!</p>
+                                <p>We are excited to bring you this unique opportunity to connect with others and enjoy a day full of joy and adventure. Our team has worked hard to organize this event, ensuring that it will be a memorable experience for everyone involved.</p>
+                                <p>Whether you are looking to relax and unwind, or seeking a thrilling adventure, this event has something for everyone. We look forward to seeing you there!</p>
+                                <p><strong>Date:</strong> <%= event.event_date %></p>
+                                <p><strong>Available Tickets:</strong> <%= event.available_tickets %></p>
+                                <form action="/book-event/<%= event.id %>" method="GET">
+                                    <button type="submit">Book Event</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </div>
+                <% }) %>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 4000); // Change image every 4 seconds
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+    </script>
+</body>
+</html>
