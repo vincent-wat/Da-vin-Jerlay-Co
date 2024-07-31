@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <%- include('header') %>
+
+    <main>
+        <section id="contact-form">
+            <h1>Contact Us</h1>
+            <form action="/contact" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+        <section id="contact-info">
+            <h2>Contact Information</h2>
+            <p>Address: 123 Hotel St, City, Country</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Email: info@hotel.com</p>
+            <p>Business Hours: 9:00 AM - 6:00 PM</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509308!2d144.95373531531684!3d-37.8162799797517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf5775d51f4fd6000!2sVictoria!5e0!3m2!1sen!2sau!4v1510919613600" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </section>
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is the check-in time?</h3>
+                <p>Check-in time is from 3:00 PM onwards.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do you offer free Wi-Fi?</h3>
+                <p>Yes, we offer complimentary Wi-Fi to all our guests.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

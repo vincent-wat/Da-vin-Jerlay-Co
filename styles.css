@@ -1,0 +1,301 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f9f1; /* Light pastel green background */
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    height: 50px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn {
+    margin: 4px 2px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.btn-edit {
+    background-color: #4CAF50;
+}
+
+.btn-cancel {
+    background-color: #f44336;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    z-index: 1000;
+}
+
+section {
+    margin: 20px 0;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+p {
+    margin: 10px 0;
+}
+
+/* Additional Styles */
+.highlight, .room {
+    background-color: #d3f1d8; /* Even lighter pastel green */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.highlight h3, .room h3 {
+    margin-top: 0;
+}
+
+#search input[type="text"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: calc(100% - 100px);
+}
+
+#search button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #48bb78;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* About Us Page */
+#history, #group, #privacy {
+    padding: 20px;
+}
+
+#history h2, #group h2, #privacy h2 {
+    margin-bottom: 10px;
+}
+
+#history p, #group p, #privacy p {
+    margin-bottom: 20px;
+}
+
+/* Explore Page */
+#sites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.site {
+    width: 45%;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.site img {
+    width: 100%;
+    height: auto;
+}
+
+#filters {
+    text-align: center;
+    padding: 20px;
+}
+
+#filters button {
+    margin: 5px;
+}
+
+/* Events Page */
+#events-calendar, #event-details {
+    padding: 20px;
+}
+
+.event {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.event h3 {
+    margin-bottom: 10px;
+}
+
+.event p {
+    margin-bottom: 10px;
+}
+
+.event button {
+    margin-top: 10px;
+}
+
+/* Register and Login Page */
+#register, #login {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#register h1, #login h1 {
+    text-align: center;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Contact Us Page */
+#contact-form, #contact-info, #faq {
+    padding: 20px;
+}
+
+#contact-form form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#contact-form h1, #faq h2, #contact-info h2 {
+    text-align: center;
+}
+
+#contact-form label {
+    display: block;
+    margin-top: 10px;
+}
+
+#contact-form input, #contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#contact-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#contact-info p {
+    text-align: center;
+}
+
+#faq .faq-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+#faq .faq-item h3 {
+    margin-bottom: 5px;
+}
+
+#faq .faq-item p {
+    margin: 0;
+}
