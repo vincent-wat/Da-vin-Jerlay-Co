@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <%- include('header') %>
 
-    <main>
+    
+        
         <section id="register">
             <h1>Register</h1>
             <% if (message === 'email-exists') { %>
@@ -29,9 +30,19 @@
                 <button type="submit">Register</button>
             </form>
         </section>
-    </main>
+    
     <footer>
         <p>&copy; 2024 Hotel. All Rights Reserved.</p>
     </footer>
 </body>
+
+
+
 </html>
+
+<style>
+    body {
+        background-image: url("images/hotelbg.png");
+        background-size: cover;
+    }
+</style>

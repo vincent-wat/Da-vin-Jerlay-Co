@@ -20,22 +20,53 @@
             </div>
         </section>
 
-       <section class="hlslideshow-container" id = "hlslide">
         <h2>Highlights</h2>
-	        <div class="slider-wrapper">
-		        <div class="slider">
-			        <img id="slide-1" src="/images/eventstarlitpoolsidemovie.png" alt="Upcoming Events" />
-			        <img id="slide-2" src="/images/eventsunsetyoga.png" alt="Main Attractions" />
-			        <img id="slide-3" src="/images/eventgourmet.png" alt="Featured Activities" />
-		        </div>
-		        <div class="slider-nav">
-			        <a href="#slide-1"></a>
-			        <a href="#slide-2"></a>
-			        <a href="#slide-3"></a>
-		        </div>
-	        </div>
+        <!--highlights carousel-->
+        <section class = "hlslideshow-body">
+            <div class = "hlslideshow-container">
+            <div class = "hlslides">
+                <input type = "radio" name = "radio-btn" id = "radio1">
+                <input type = "radio" name = "radio-btn" id = "radio2">
+                <input type = "radio" name = "radio-btn" id = "radio3">
+
+                <div class = "hlslide first">
+                    <img src = "/images/eventstarlitpoolsidemovie.png" alt = "upcoming events">
+                </div>
+                <div class = "hlslide">
+                    <img src = "/images/eventsunsetyoga.png" alt = "main attractions">
+                </div>
+                <div class = "hlslide">
+                    <img src = "/images/eventgourmetsh.png" alt = "featured activities">
+                </div>
+
+                <div class = "navigation-auto">
+                    <div class = "auto-btn1"></div>
+                    <div class = "auto-btn2"></div>
+                    <div class = "auto-btn3"></div>
+                </div>
+
+            </div>
+
+            <div class = "navigation-manual">
+                <label for = "radio1" class = "manual-btn"></label>
+                <label for = "radio2" class = "manual-btn"></label>
+                <label for = "radio3" class = "manual-btn"></label>
+            </div>
+
+        </div>
         </section>
 
+        <script type = "text/javascript">
+            var counter = 1;
+            setInterval(function() {
+                document.getElementById('radio' + counter).checked = true;
+                counter++;
+                if (counter > 3) {
+                    counter = 1;
+                }
+            }, 5000);
+        </script>
+        <!--end of carousel-->
 
         <section id="amenities">
             <h2>Our Amenities</h2>
@@ -64,7 +95,9 @@
                     <img src="/images/roomdeluxe.png" alt="Deluxe Room">
                     <div>
                         <h3>Deluxe Room</h3>
-                        <p>Available: Yes</p>
+                        <p>Experience luxury and comfort in our Deluxe Room, 
+                        featuring stunning ocean views, plush bedding, and elegant decor for an unforgettable stay.</p>
+                        <p>Available: <strong>Yes</strong></p>
                         <button class="btn" onclick="window.location.href='/room?name=deluxe'">View Details</button>
                     </div>
                 </div>
@@ -72,21 +105,33 @@
                     <img src="/images/roomsuite.png" alt="Suite">
                     <div>
                         <h3>Suite</h3>
-                        <p>Available: No</p>
+                        <p>Indulge in the ultimate beachfront escape in our luxurious Suite, offering expansive living spaces, 
+                        and premium amenities for a truly extraordinary retreat.</p>
+                        <p>Available: <strong>No</strong></p>
                         <button class="btn" onclick="window.location.href='/room?name=suite'">View Details</button>
                     </div>
                 </div>
             </div>
         </section>
         <section id="dining">
+        <div class ="extras-container">
+        <div class = "extras">
             <h2>Dining</h2>
-            <p>Discover our exquisite dining options, from fine dining restaurants to casual cafes, offering a variety of cuisines.</p>
+            <p>Savor exquisite culinary delights at our beachfront dining venues, where fresh, local ingredients and world-class chefs
+            create unforgettable gastronomic experiences.</p>
             <img src="/images/dining.png" alt="Dining">
+        </div>
+        </div>
         </section>
         <section id="spa">
+        <div class ="extras-container">
+        <div class = "extras">
             <h2>Spa & Wellness</h2>
-            <p>Relax and rejuvenate at our luxury spa, offering a range of treatments to pamper you during your stay.</p>
+            <p>Rejuvenate your mind, body, and soul at our Spa and Wellness center, offering a serene sanctuary with luxurious 
+            treatments, holistic therapies, and breathtaking ocean views.</p>
             <img src="/images/spa.png" alt="Spa">
+        </div>
+        </div>
         </section>
         <section id="testimonials">
             <h2>What Our Guests Say</h2>
@@ -99,10 +144,22 @@
                 <h4>- Jane Smith</h4>
             </div>
         </section>
+        <h2 id = "historyT">Our History</h2>
         <section id="history">
-            <h2>Our History</h2>
-            <p>Learn about our hotel's rich history and background.</p>
-            <img src="/images/hotel memorabilia.png" alt="Our History">
+        <img src="/images/hotel memorabilia.png" alt="Our History">
+            
+            <p>Founded on the golden sands of Hawaii, Da'Vin Jerlay Co has a rich history rooted in a deep appreciation for the natural beauty and cultural heritage of this idyllic paradise. From the moment our founders set foot on this stunning beachfront, they envisioned creating a high-end resort that would offer unparalleled luxury while honoring and preserving the unique environment and traditions of the island.
+
+Our journey began over two decades ago, driven by a passion for hospitality and a commitment to sustainability. We meticulously crafted each aspect of our resort, blending modern elegance with the timeless charm of Hawaiian architecture. Every detail, from the lush gardens to the pristine beachfront, reflects our dedication to creating a sanctuary where guests can immerse themselves in the splendor of nature.
+
+A cornerstone of our resort's identity is our profound love for turtles. These majestic creatures, symbols of longevity and wisdom in Hawaiian culture, have always held a special place in our hearts. We are proud to support local conservation efforts to protect and nurture the native sea turtle population. Our guests often have the unique opportunity to witness the enchanting sight of turtles nesting on our shores or gracefully swimming in the crystal-clear waters.
+
+Our commitment to turtles extends beyond conservation. We incorporate their significance into our resort's design and activities. From turtle-themed art and decor to educational programs and guided tours, we aim to raise awareness about these incredible animals and inspire our guests to join us in our efforts to protect them.
+
+Over the years, Da'Vin Jerlay Co has evolved into more than just a luxury resort. It has become a haven for travelers seeking not only relaxation and indulgence but also a deeper connection with nature and the rich cultural tapestry of Hawaii. We continue to innovate and enhance our offerings, always with a focus on sustainability and respect for the environment.
+
+As we look to the future, we remain dedicated to our founding principles. Our history is a testament to our unwavering commitment to excellence, environmental stewardship, and the celebration of Hawaiian heritage. We invite you to become part of our story and experience the magic of Da'Vin Jerlay Co, where luxury meets nature in perfect harmony.</p>
+            
         </section>
     </main>
     <footer>
@@ -133,5 +190,6 @@
             setInterval(changeImage, 3000);
         });
     </script>
+    
 </body>
 </html>
