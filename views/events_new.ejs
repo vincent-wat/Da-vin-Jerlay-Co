@@ -11,7 +11,7 @@
             color: #333;
             background: #f0f0f0;
             margin: 0;
-            padding: 0;
+            padding: 0px 0px 65px 0px;
         }
         header, footer {
             background: #1d1d1d;
@@ -178,6 +178,7 @@
                             eventImage = "eventdefault.png";
                         }
                     %>
+                    
                     <div class="event-content">
                         <% if (index % 2 === 0) { %>
                             <div class="event-text">
@@ -217,96 +218,33 @@
                     </div>
                 <% }) %>
             </div>
-             <div class="event-container">
-      <h3 class="year">Upcoming Events</h3>
-
-      <div class="event">
-        <div class="event-left">
-          <div class="event-date">
-            <div class="date">01</div>
-            <div class="month">Aug</div>
-          </div>
-        </div>
-
-        <div class="event-right">
-          <h3 class="event-title">Swim with Dolphins</h3>
-
-          <div class="event-description">
-            Dolphins yaaaaaaay
-          </div>
-
-          <div class="event-timing">
-            <img src="images/time.png" alt="" /> 7:00 am
-          </div>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="event-left">
-          <div class="event-date">
-            <div class="date">02</div>
-            <div class="month">Sep</div>
-          </div>
-        </div>
-
-        <div class="event-right">
-          <h3 class="event-title">Sunset Yoga on the Beach</h3>
-
-          <div class="event-description">
-            cool
-          </div>
-
-          <div class="event-timing">
-            <img src="images/time.png" alt="" /> 7:00 am
-          </div>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="event-left">
-          <div class="event-date">
-            <div class="date">03</div>
-            <div class="month">Oct</div>
-          </div>
-        </div>
-
-        <div class="event-right">
-          <h3 class="event-title">Gourmet Cooking Classes</h3>
-
-          <div class="event-description">
-            Yummmm
-          </div>
-
-          <div class="event-timing">
-            <img src="images/time.png" alt="" /> 7:00 am
-          </div>
-        </div>
-      </div>
-
-      <div class="event">
-        <div class="event-left">
-          <div class="event-date">
-            <div class="date">04</div>
-            <div class="month">Nov</div>
-          </div>
-        </div>
-
-        <div class="event-right">
-          <h3 class="event-title">Starlit Poolside Move Nights</h3>
-
-          <div class="event-description">
-            finding nemo
-          </div>
-
-          <div class="event-timing">
-            <img src="images/time.png" alt="" /> 8:00 am
-          </div>
-        </div>
-      </div>
-
-      
-      </div>
-    </div>
+            <div class = "upcoming-container">
+                <div class = "hTitle">
+                    <h1>Upcoming Events</h1>
+                    <p>Purchase your tickets before they're gone!</p>
+                </div>
+                <div class = "upcoming-body">
+                        <% events.slice(0, 3).forEach((event, index) => { %>
+                            <a href="#">
+                            <div class = "upcoming-left-content">
+                                <div class = "event-title">
+                                    <h2><%= event.name %></h2>
+                                    <%
+                                        const date = new Date(event.event_date).toLocaleDateString('en-US', {
+                                            month: 'short',
+                                            day: '2-digit',
+                                            year: 'numeric'
+                                        });
+                                    %>
+                                    <div class = "event-date"><%= date %></div>
+                                    <div class = "event-tickets"><%= event.available_tickets %></div>
+                                </div>
+                            </div>
+                            </a>
+                        <% }) %>
+                </div>
+            </div>
+        
         </section>
 
 
@@ -338,4 +276,3 @@
     </script>
 </body>
 </html>
-
