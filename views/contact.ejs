@@ -14,7 +14,7 @@
         <section id="contact-form">
         <br>
             <h1>Contact Us</h1>
-            <form action="/contact" method="POST">
+            <form action="/send_email" method="POST">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
                 <label for="email">Email:</label>
@@ -185,7 +185,7 @@
                     <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
                     <p>Address: 123 Hotel St, City, Country</p>
                     <p>Phone: +123 456 7890</p>
-                    <p>Email: info@hotel.com</p>
+                    <p>Email: davinjerlay@gmail.com</p>
                     <p>Business Hours: 9:00 AM - 6:00 PM</p>
                 </div>
             </div>
@@ -216,6 +216,34 @@
         });
       }
     </script>
+
+<script>
+  document.querySelector("form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch("/send_email", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(result => {
+          if (result.success) {
+              alert("Email sent successfully!");
+          } else {
+              alert("Failed to send email: " + result.message);
+          }
+      })
+      .catch(error => {
+          alert("An error occurred: " + error.message);
+      });
+  });
+</script>
 
 </body>
 </html>
