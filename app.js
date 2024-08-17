@@ -6,6 +6,61 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const app = express();
 const port = 3000;
+const http = require('http');
+const nodemailer = require('nodemailer');
+
+//contact stuff
+app.set("port", port);
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(express.static(path.join(__dirname, "viewse/contact.ejs")))
+
+
+
+app.post("/send_email", function(req, res) {
+    var name = req.body.name;
+    var email = req.body.email;
+    var text = req.body.text;
+    var message = req.body.message;
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'davinjerlay@gmail.com', 
+            pass: 'upli vydd cndj fuoq'
+
+        }
+    });
+
+    var mailOptions = {
+        from: req.body.email,
+        to: 'davinjerlay@gmail.com',
+        subject: 'Contact Form Request',
+        html: `
+            <h2 style="color: #333;">Contact Form</h2>
+            <p><strong>Name:</strong> ${req.body.name}</p>
+            <p><strong>Email:</strong> ${req.body.email}</p>
+            <p><strong>Subject:</strong> ${req.body.title}</p>
+            <p><strong>Message:</strong><br>${req.body.message}</p>
+            <img src="https://i.postimg.cc/bY1Q0Q9W/logo.png" style="width: 200; height: auto;">
+        `
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+            res.status(500).json({ success: false, message: 'Email could not be sent.' });
+        } else {
+            console.log("Email Sent: " + info.response);
+            res.status(200).json({ success: true, message: 'Email sent successfully!' });
+        }
+        
+
+    });
+})
+
+
+//end of contact
 
 const saltRounds = 10;
 
@@ -13,8 +68,9 @@ const saltRounds = 10;
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',  // Replace with your MySQL password
-    database: 'hotel_db'
+    password: 'danny',  // Replace with your MySQL password
+    database: 'hotel_db',
+    port: "3306",
 });
 
 app.use(express.static('public'));
@@ -230,6 +286,7 @@ app.get('/logout', (req, res) => {
     });
 });
 
+// Password change
 app.post('/change-password', isAuthenticated, (req, res) => {
     const { currentPassword, newPassword, confirmNewPassword } = req.body;
     const userId = req.session.user.id;
@@ -249,6 +306,29 @@ app.post('/change-password', isAuthenticated, (req, res) => {
                     const updateQuery = 'UPDATE users SET password = ? WHERE id = ?';
                     db.query(updateQuery, [hash, userId], (updateError, updateResults) => {
                         if (updateError) throw updateError;
+                        const transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'davinjerlay@gmail.com',
+                                pass: 'upli vydd cndj fuoq'
+                            }
+                        });
+
+                        const mailOptions = {
+                            from: req.body.email,
+                            to: 'davinjerlay@gmail.com',
+                            subject: 'Password changed successfully',
+                            html: '<p>If you did not request a password change, please contact us immediately.</p>'
+                        };
+
+                        transporter.sendMail(mailOptions, (emailError, info) => {
+                            if (emailError) {
+                                console.error('Error sending email:', emailError);
+                            } else {
+                                console.log('Email sent:', info.response);
+                            }
+                        });
+
                         res.redirect('/dashboard?message=password-changed');
                     });
                 });
@@ -258,6 +338,7 @@ app.post('/change-password', isAuthenticated, (req, res) => {
         });
     });
 });
+// end of password change
 
 app.get('/rooms', (req, res) => {
     const roomQuery = 'SELECT * FROM rooms';
@@ -642,3 +723,4 @@ app.get('/download-ticket', isAuthenticated, (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
