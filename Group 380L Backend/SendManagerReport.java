@@ -9,8 +9,30 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
+import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.List;
+import java.lang.StringBuilder;
 
 public class SendManagerReport {
+
+    public static List<String> insertionSort(List<String> list) {
+        for (int i = 1; i < list.size(); i++) {
+            String key = list.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && list.get(j).compareTo(key) > 0) {
+                list.set(j + 1, list.get(j));
+                j = j - 1;
+            }
+            list.set(j + 1, key);
+        }
+        return list;
+    }
 
     /**
      * Main method that handles the process of sending the manager report email.
@@ -44,15 +66,15 @@ public class SendManagerReport {
         });
 
         // Variables to store hotel information
-        Room room =  null;
-        int bed1 = 0;
-        int bed2 = 0;
-        int bed3 = 0;
-        int bed4 = 0;
-        int suite = 0;
-        int deluxe = 0;
         double avgDays = 0.0;
         int numOfBookings = 0;
+        List<String> customerNames = new ArrayList<>();
+
+        Map<String, Integer> roomTypeCounts = new HashMap<>();
+        String[] roomTypes = {"1bed", "2bed", "3bed", "4bed", "suite", "deluxe"};
+         for (String roomType : roomTypes) {
+             roomTypeCounts.put(roomType.toLowerCase(), 0);
+         }
 
         try {
             // Database Connection
@@ -84,37 +106,53 @@ public class SendManagerReport {
                 avgDays = (double) totalDays / numOfBookings;
                }
 
-               avgDays = Math.round(avgDays * 10.0) / 10.0;
-
             // Query for room type
             String roomsSQL = "SELECT room_type FROM bookings WHERE status = 'active'";
             PreparedStatement roomStatement = connection.prepareStatement(roomsSQL);
             ResultSet roomResultSet = roomStatement.executeQuery();
 
             while (roomResultSet.next()) {
-                String roomTypeString = roomResultSet.getString("room_type");
-                RoomType roomType = RoomType.fromDatabase(roomTypeString);
-                room = new Room(roomType);
-
-                if (roomType.equals(RoomType.SINGLE)) {
-                    bed1++;
-                }
-                else if (roomType.equals(RoomType.DOUBLE)) {
-                    bed2++;
-                } 
-                else if (roomType.equals(RoomType.TRIPLE)) {
-                    bed3++;
-                } 
-                else if (roomType.equals(RoomType.QUADRUPLE)) {
-                    bed4++;
-                } 
-                else if (roomType.equals(RoomType.SUITE)) {
-                    suite++;
-                } 
-                else if (roomType.equals(RoomType.DELUXE)) {
-                    deluxe++;
+                String roomType = roomResultSet.getString("room_type").toLowerCase();;
+                
+                 // Increment
+                 if (roomTypeCounts.containsKey(roomType)) {
+                    roomTypeCounts.put(roomType, roomTypeCounts.get(roomType) + 1);
                 }
             }
+
+            PriorityQueue<Entry<String, Integer>> heap = new PriorityQueue<>(new Comparator<Entry<String, Integer>>() {
+                @Override
+                public int compare(Entry<String, Integer> i, Entry<String, Integer> j) {
+                    return j.getValue().compareTo(i.getValue());
+                }
+            });
+
+            heap.addAll(roomTypeCounts.entrySet());
+
+            //Most Booked room
+            Entry<String, Integer> mostBookedRoom = heap.poll();
+
+             // Query for customer names
+             String customerSql = "SELECT user_name FROM bookings WHERE status = 'active'";
+             PreparedStatement customerStatement = connection.prepareStatement(customerSql);
+             ResultSet customerResultSet = customerStatement.executeQuery();
+ 
+             // Retrieve customer names
+             while (customerResultSet.next()) {
+                String userName = customerResultSet.getString("user_name");
+                if (userName != null) {
+                    customerNames.add(userName);
+                }
+            }
+ 
+             // Sort the customer names
+             List<String> sortedCustomerNames = insertionSort(customerNames);
+
+            bookingResultSet.close();
+            bookingStatement.close();
+            roomResultSet.close();
+            roomStatement.close();
+            connection.close();
 
             // Construct the email message
             MimeMessage message = new MimeMessage(session);
@@ -122,22 +160,43 @@ public class SendManagerReport {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress("davinjerlay@gmail.com"));
             message.setSubject("Manager Report");
 
+            //StringBuilder for list of customer names
+
+            StringBuilder sb = new StringBuilder();
+
+            for (String name : sortedCustomerNames) {
+                sb.append("<li>").append(name).append("</li>");
+            }
+
+            String listOfCustNames = sb.toString();
+
             // HTML formatted email content
-            String emailContent = "<div style='font-family: Arial, sans-serif; color: black;'>" +
-                                  "<p><u><strong>Manager Report:</strong></u></p>" +
-                                  "<p><strong>Total Number of Bookings:</strong> " + numOfBookings + "</p>" +
-                                  "<p><strong>Average Days Stayed:</strong> " + avgDays + "</p>" +
-                                  "<p><strong><u>Room Types Booked:</strong></u></p>" +
-                                  "<ul>" +
-                                  "<li>1 Bed: " + bed1 + "</li>" +
-                                  "<li>2 Bed: " + bed2 + "</li>" +
-                                  "<li>3 Bed: " + bed3 + "</li>" +
-                                  "<li>4 Bed: " + bed4 + "</li>" +
-                                  "<li>Suite: " + suite + "</li>" +
-                                  "<li>Deluxe: " + deluxe + "</li>" +
-                                  "</ul>" +
-                                  "<br><img src='cid:logo' width='500' height='88'>" +
-                                  "</div>";
+            String emailContent = String.format(
+                "<div style='font-family: Arial, sans-serif; color: black;'>" +
+                "<p><u><strong>Manager Report:</strong></u></p>" +
+                "<p><strong>Total Number of Bookings:</strong> %d</p>" +
+                "<p><strong>Average Days Stayed:</strong> %.1f</p>" +
+                "<p><strong><u>Room Types Booked:</u></strong></p>" +
+                "<ul>" +
+                "<li>1 Bed: %d</li>" +
+                "<li>2 Bed: %d</li>" +
+                "<li>3 Bed: %d</li>" +
+                "<li>4 Bed: %d</li>" +
+                "<li>Suite: %d</li>" +
+                "<li>Deluxe: %d</li>" +
+                "</ul>" +
+                "<p><strong>Most Booked Room Type:</strong> " + mostBookedRoom.getKey() + 
+                "<p><strong><u>List of Current Customer Names (Alphabetical Order):</strong></p></u>" + listOfCustNames +
+                "<br><img src='cid:logo' width='500' height='88'>" +
+                "</div>",
+                numOfBookings, avgDays,
+                roomTypeCounts.get("1bed"),
+                roomTypeCounts.get("2bed"),
+                roomTypeCounts.get("3bed"),
+                roomTypeCounts.get("4bed"),
+                roomTypeCounts.get("suite"),
+                roomTypeCounts.get("deluxe")
+            );
 
             // Create a multipart message
             Multipart multipart = new MimeMultipart();
@@ -151,7 +210,7 @@ public class SendManagerReport {
 
             // Add the Da'vin Jerlay Co logo to the email
             MimeBodyPart imagePart = new MimeBodyPart();
-            DataSource source = new FileDataSource("logo.png");
+            DataSource source = new FileDataSource("Group 380L Backend\\logo.png");
             imagePart.setDataHandler(new DataHandler(source));
             imagePart.setHeader("Content-ID", "<logo>");
             multipart.addBodyPart(imagePart);
