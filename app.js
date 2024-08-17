@@ -316,7 +316,7 @@ app.post('/change-password', isAuthenticated, (req, res) => {
 
                         const mailOptions = {
                             from: req.body.email,
-                            to: 'davinjerlay@gmail.com',
+                            to: user.email,
                             subject: 'Password changed successfully',
                             html: '<p>If you did not request a password change, please contact us immediately.</p>'
                         };
