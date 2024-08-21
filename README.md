@@ -38,8 +38,5 @@ Before you begin, ensure you have met the following requirements:
 3. **Installation**: Step-by-step instructions on setting up the project.
 4. **Project Structure**: Provides an overview of the project's file structure.
 5. **Usage**: Instructions on how to use the website for both users and admins.
-6. **Environment Variables**: Lists required environment variables.
-7. **Dependencies**: Lists the Node.js packages the project depends on.
-8. **Contributing**: Information for potential contributors.
-9. **License**: Specifies the license under which the project is released.
-10. **Contact**: Provides contact information for further questions or support.
+
+
