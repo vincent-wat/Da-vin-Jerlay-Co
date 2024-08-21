@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <%- include('header') %>
+
+    <main>
+        <section id="contact-form">
+        <br>
+            <h1>Contact Us</h1>
+            <form action="/send_email" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+        <section id="contact-info">
+            <p style="text-align: center;">
+                <iframe class = "map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509308!2d144.95373531531684!3d-37.8162799797517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf5775d51f4fd6000!2sVictoria!5e0!3m2!1sen!2sau!4v1510919613600" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </p>
+        </section>
+
+      <div class="faq-wrapper">
+      <h1>Frequently Asked Questions</h1>
+
+      <div class="faq">
+        <button class="accordion">
+          What is the check-in time?
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Check-in time is from 3:00 PM onwards.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          Do you offer free Wi-Fi?
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, we offer complimentary Wi-Fi to all our guests.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          Is parking available at the hotel?
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Yes, we provide on-site parking for our guests. Valet parking is also avaiable at an additional cost.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="faq">
+        <button class="accordion">
+          Are pets allowed in the hotel?
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Guests are welcome to bring pets with prior notification. There is a pet fee in place and there are some
+            restrictions on the size and number of pets.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq">
+        <button class="accordion">
+          Is there a gym or fitness center available?
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            Our hotel features a fully equipped gym open 24/7. Towels and water are provided for your convenience.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="faq">
+        <button class="accordion">
+          What dining options are available?
+          <i class="fa-solid fa-caret-down"></i>
+        </button>
+        <div class="pannel">
+          <p>
+            We offer a variety of dining options, including a buffet breakfast, a la carte lunch, and find dining restaurant
+            for dinner. Room service is available 24/7.
+          </p>
+        </div>
+      </div>
+    </div>
+
+        
+
+        <section id="privacy">
+            <div class="faq">
+                <button class="accordion">
+                    <h2>Privacy Policy</h2>
+                    <p>Effective Date: July 27th 2024</p>
+                </button>
+
+                <div class = "pannel">
+                    <h2>Introduction</h2>
+                    <p>Welcome to Da'Vin Jerlay Co. Your privacy is important to us. This Privacy Policy 
+                    explains how we collect, use, disclose, and protect your personal information when you 
+                    visit our website, use our services, or stay at our hotel.</p>
+
+                    <h2>Information We Collect</h2>
+                    <p>We may collect and process the following types of information:</p>
+                    <ul>
+                        <li><strong>Personal Identification Information:</strong> Name, email address, phone number, mailing address, 
+                        and payment information.</li>
+                        <li><strong>Stay Information:</strong> Reservation details, check-in and check-out dates, room preferences, 
+                        and special requests.</li>
+                        <li><strong>Usage Data:</strong> IP address, browser type, pages visited, and the time and date of your visit.</li>
+                        <li><strong>Communication Records:</strong> Correspondence with us via email, phone, or social media.</li>
+                    </ul>
+
+                    <h2>How We Use Your Information</h2>
+                    <p>We use your information for the following purposes:</p>
+                    <ul>
+                        <li><strong>Reservation Management:</strong> To process and manage your hotel bookings and requests.</li>
+                        <li><strong>Customer Service:</strong> To respond to your inquiries, provide support, and improve our services.</li>
+                        <li><strong>Marketing and Promotions:</strong> To send you updates, offers, and newsletters related to our services, 
+                        unless you opt-out.</li>
+                        <li><strong>Analytics:</strong> To analyze website usage and improve our services and user experience.</li>
+                        <li><strong>Compliance:</strong> To comply with legal obligations and enforce our terms and policies.</li>
+                    </ul>
+
+                    <h2>Sharing Your Information</h2>
+                    <p>We do not sell, trade, or rent your personal information to third parties. We may share your information with:</p>
+                    <ul>
+                        <li><strong>Service Providers:</strong> Third-party vendors who perform services on our behalf, such as payment 
+                        processing, marketing, and data analysis.</li>
+                        <li><strong>Regulatory Authorities:</strong> When required by law or to protect our rights, property, or safety, 
+                        and that of our guests and employees.</li>
+                        <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or sale of all or part of our assets.</li>
+                    </ul>
+
+                    <h2>Security of Your Information</h2>
+                    <p>We implement appropriate technical and organizational measures to protect your personal 
+                    information against unauthorized access, disclosure, alteration, or destruction. However,
+                    no method of transmission over the internet or electronic storage is 100% secure.</p>
+
+                    <h2>Your Rights</h2>
+                    <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+                    <ul>
+                        <li><strong>Access:</strong> The right to request a copy of your personal information we hold.</li>
+                        <li><strong>Correction:</strong> The right to request correction of inaccurate or incomplete information.</li>
+                        <li><strong>Deletion:</strong> The right to request deletion of your personal information, subject to certain exceptions.</li>
+                        <li><strong>Objection:</strong> The right to object to the processing of your personal information for marketing or other purposes.</li>
+                    </ul>
+
+                    <h2>Cookies and Tracking Technologies</h2>
+                    <p>We use cookies and similar tracking technologies to enhance your experience on our website. You can control cookies through your 
+                    browser settings. For more information, please see our Cookie Policy.</p>
+
+                    <h2>Changes to This Privacy Policy</h2>
+                    <p>We may update this Privacy Policy from time to time. Any changes will be posted on our website with the updated effective date. 
+                    We encourage you to review this policy periodically.</p>
+
+                    <h2>Contact Us</h2>
+                    <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
+                    <p>Address: 123 Hotel St, City, Country</p>
+                    <p>Phone: +123 456 7890</p>
+                    <p>Email: davinjerlay@gmail.com</p>
+                    <p>Business Hours: 9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+   
+   <script>
+      var acc = document.getElementsByClassName("accordion");
+      var i;
+
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          this.parentElement.classList.toggle("active");
+
+          var pannel = this.nextElementSibling;
+
+          if (pannel.style.display === "block") {
+            pannel.style.display = "none";
+          } else {
+            pannel.style.display = "block";
+          }
+        });
+      }
+    </script>
+
+<script>
+  document.querySelector("form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch("/send_email", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(result => {
+          if (result.success) {
+              alert("Email sent successfully!");
+          } else {
+              alert("Failed to send email: " + result.message);
+          }
+      })
+      .catch(error => {
+          alert("An error occurred: " + error.message);
+      });
+  });
+</script>
+
+</body>
+</html>

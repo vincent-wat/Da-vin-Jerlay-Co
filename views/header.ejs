@@ -1,0 +1,47 @@
+<header>
+  <div class="header-container">
+    <a href="/" class="logo-link">
+      <img src="/images/hotellogo.png" alt="Hotel Logo" class="logo">
+        </a>
+    <nav>
+      <ul class="nav-links">
+        <% if (user && user.is_admin) { %>
+        <li>
+          <a href="/admin-dashboard">Home</a>
+        </li>
+        <% } else { %>
+                    <li>
+          <a href="/">Home</a>
+        </li>
+        <% } %>
+                <li>
+          <a href="/explore">Explore</a>
+        </li>
+        <li>
+          <a href="/events_new">Events</a>
+        </li>
+        <li>
+          <a href="/rooms">Rooms</a>
+        </li>
+        <li>
+          <a href="/contact">Contact Us</a>
+        </li>
+        <% if (loggedin) { %>
+                    <li>
+          <a href="/dashboard">Dashboard</a>
+        </li>
+        <li>
+          <a href="/logout">Logout</a>
+        </li>
+        <% } else { %>
+                    <li>
+          <a href="/register">Register</a>
+        </li>
+        <li>
+          <a href="/login">Login</a>
+        </li>
+        <% } %>
+      </ul>
+    </nav>
+  </div>
+</header>

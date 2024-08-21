@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <%- include('header') %>
+
+    <main class = "exploreMain">
+        <h1>Explore Sites</h1>
+        <section id="filters">
+            <button type = "button" class = "collapsible">Filters</button>
+            <div class="content">
+                <p>Filter by distance</p>
+                <button class = "btn" onclick="filterObjects('Near')">Near</button>
+                <button class = "btn" onclick="filterObjects('Close')">Close</button>
+                <button class = "btn" onclick="filterObjects('Far')">Far</button>
+                <p>Filter by topic</p>
+                <button class = "btn" onclick="filterObjects('Water')">Water</button>
+                <button class = "btn" onclick="filterObjects('Outdoors')">Outdoors</button>
+                <button class = "btn" onclick="filterObjects('Indoors')">Indoors</button>
+                <button class = "btn" onclick="filterObjects('Activity')">Activity</button>
+                <p>Filter by price</p>
+                <button class = "btn" onclick="filterObjects('Budget-Friendly')">Budget Friendly</button>
+                <button class = "btn" onclick="filterObjects('Mid-Range')">Mid Range</button>
+                <button class = "btn" onclick="filterObjects('Luxury')">Luxury</button>
+                <p>Reset all filters</p>
+                <button class = "btn" onclick="filterObjects('all')">Reset</button>
+            </div>
+        </section>
+        <section class="sites">
+            <div class="site Far Water Outdoors Budget-Friendly">
+                <img src="images/waterpark.png" alt="Site 1">
+                <h3>Water Park</h3>
+                <p>Dive into fun and excitement at our water park, featuring thrilling water slides, 
+                a lazy river, wave pools, and splash zones perfect for families and adventure seekers alike</p>
+            </div>
+            <div class="site Near Water Outdoors Mid-Range">
+                <img src="images/coralreef.png" alt="Site 2">
+                <h3>Coral reef diving</h3>
+                <p>Explore the vibrant underwater world of our local coral reef, teeming with colorful fish 
+                and marine life. Perfect for snorkeling and diving enthusiasts.</p>
+            </div>
+            <div class="site Close Outdoors Budget-Friendly">
+                <img src="images/farmersMarket.png" alt="Site 3">
+                <h3>Farmers Market</h3>
+                <p>Experience the vibrant local culture at the Farmers Market, where you can find an
+                array of fresh, locally grown produce, tropical fruits, handmade crafts, and delicious island cuisine.</p>
+            </div>
+            <div class="site Close Activity Outdoors Luxury">
+                <img src="images/golfCourse.png" alt="Site 4">
+                <h3>Seaside Golf Course</h3>
+                <p>This world-class course offers a challenging and enjoyable game for golfers of all skill levels. Enjoy the 
+                gentle sea breeze, lush greenery, and pristine greens as you play your way through this seaside paradise.</p>
+            </div>
+            <div class="site Near Water Outdoors Activity Budget-Friendly">
+                <img src="images/surfing.jpg" alt="Site 5">
+                <h3>Surfing Lessons</h3>
+                <p>Ride the waves and experience the thrill of surfing with expert lessons offered right at our resort. Whether
+                     you’re a novice eager to catch your first wave or an experienced surfer looking to improve your skills, our certified instructors provide personalized coaching in a safe and supportive environment.</p>
+            </div>
+            <div class="site Close Indoors Mid-Range">
+                <img src="images/sawcenter.png" alt="Site 6">
+                <h3>Spa and Wellness Center</h3>
+                <p>Retreat to our tranquil spa and wellness center, where relaxation and rejuvenation await. Nestled amidst lush
+                     gardens overlooking the ocean, our spa offers a variety of indulgent treatments designed to soothe the body and mind.</p>
+            </div>
+            <div class="site Close Activity Outdoors Budget-Friendly">
+                <img src="images/coastalhikingtrail.jpg" alt="Site 7">
+                <h3>Scenic Coastal Hiking Trails</h3>
+                <p>Explore the natural beauty of the region by hiking along coastal trails that offer stunning views of the ocean and
+                     surrounding landscape. These trails wind through lush tropical forests, along cliffs, and down to secluded beaches.</p>
+            </div>
+            <div class="site Far Outdoors Budget-Friendly">
+                <img src="images/lighthouse.jpg" alt="Site 8">
+                <h3>Historic Lighthouse Tour</h3>
+                <p>Discover the history of the region by visiting a historic lighthouse that has guided ships to safety for over a century.
+                     Climb to the top for panoramic views of the coastline and learn about the lighthouse's role in local maritime history through interactive exhibits and guided tours.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+</script>
+
+<script>
+filterObjects("all");
+
+function filterObjects(c) {
+    var x, i;
+    x = document.getElementsByClassName("site");
+    if (c == "all") c = "";
+    for (i = 0; i < x.length; i++) {
+        removeClass(x[i], "show");
+        if(x[i].className.indexOf(c) > -1) addClass(x[i], "show")
+    }
+}
+
+function addClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+        if (arr1.indexOf(arr2[i]) == -1) {
+            element.className += " " + arr2[i];
+        }
+    }
+}
+
+function removeClass(element, name) {
+    var i, arr1, arr2;
+    arr1 = element.className.split(" ");
+    arr2 = name.split(" ");
+    for (i = 0; i < arr2.length; i++) {
+        while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+        }   
+     }
+     element.className = arr1.join(" ");
+}
+</script>
