@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <%- include('header') %>
+
+    
+        
+        <section id="register">
+            <h1>Register</h1>
+            <% if (message === 'email-exists') { %>
+                <p style="color: red;">This email is already registered. Please use a different email or login.</p>
+            <% } else if (message === 'password-mismatch') { %>
+                <p style="color: red;">Passwords do not match. Please try again.</p>
+            <% } %>
+            <form action="/register" method="POST">
+                <label for="nickname">Nickname:</label>
+                <input type="text" id="nickname" name="nickname" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <button type="submit">Register</button>
+            </form>
+        </section>
+    
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+</body>
+
+
+
+</html>
+
+<style>
+    body {
+        background-image: url("images/hotelbg.png");
+        background-size: cover;
+    }
+</style>

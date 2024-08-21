@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+       .marg {
+            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="month"] {
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+
+    <main>
+        <h1 class="marg">Payment Details</h1>
+        <form action="/confirm-payment" method="POST" onsubmit="return validateForm()">
+            <input type="hidden" name="roomType" value="<%= roomType %>">
+            <input type="hidden" name="checkIn" value="<%= checkIn %>">
+            <input type="hidden" name="checkOut" value="<%= checkOut %>">
+            
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" name="cardNumber" maxlength="19" required>
+            
+            <label for="cardExpiry">Expiry Date (MM/YY):</label>
+            <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY" required>
+            
+            <label for="cardCVC">CVC:</label>
+            <input type="text" id="cardCVC" name="cardCVC" maxlength="3" required>
+            
+            <button type="submit">Confirm Payment</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+    <script>
+        let originalValue = '';
+    
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            // Remove any non-digit and non-hyphen characters, then split into groups of four digits
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Ensure the input is no longer than 16 digits
+            if (value.length > 16) {
+                value = value.slice(0, 16);
+            }
+    
+            // Store the full value to use when the input is focused
+            originalValue = value;
+    
+            // Format the value with hyphens every 4 digits
+            const formattedValue = value.match(/.{1,4}/g)?.join('-') || '';
+        
+            // Update the input value to the formatted value
+            e.target.value = formattedValue;
+        });
+    
+        document.getElementById('cardNumber').addEventListener('blur', function (e) {
+            // On blur, hash the first 12 digits
+            let value = originalValue.replace(/\D/g, '');
+    
+            if (value.length === 16) {
+                const maskedValue = '****-****-****-' + value.slice(-4);
+                e.target.value = maskedValue;
+            }
+        });
+    
+        document.getElementById('cardNumber').addEventListener('focus', function (e) {
+            // On focus, show the original value with hyphens
+            let value = originalValue.replace(/\D/g, '');
+            const formattedValue = value.match(/.{1,4}/g)?.join('-') || '';
+            e.target.value = formattedValue;
+        });
+    
+        document.getElementById('cardExpiry').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/[^0-9\/]/g, '').slice(0, 5);
+            
+            // Automatically insert '/' after MM
+            if (value.length === 2 && !value.includes('/')) {
+                value = value + '/';
+            }
+    
+            // Validate the month part
+            const parts = value.split('/');
+            if (parts[0] > 12) {
+                value = '12/' + (parts[1] || '');
+            }
+    
+            e.target.value = value;
+        });
+    
+        function validateForm() {
+            const cardNumber = originalValue.replace(/\D/g, ''); // Use the original unmasked value for validation
+            const cardExpiry = document.getElementById('cardExpiry').value;
+            const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    
+            if (cardNumber.length !== 16) {
+                alert('Please enter a valid 16-digit card number.');
+                return false;
+            }
+    
+            if (!expiryPattern.test(cardExpiry)) {
+                alert('Please enter a valid expiry date in MM/YY format.');
+                return false;
+            }
+    
+            const today = new Date();
+            const [month, year] = cardExpiry.split('/').map(Number);
+            const expiryDate = new Date(`20${year}`, month - 1);
+    
+            if (expiryDate < today) {
+                alert('The expiry date cannot be in the past.');
+                return false;
+            }
+    
+            return true;
+        }
+    </script>
+    
+    
+    
+    
+    
+</body>
+</html>

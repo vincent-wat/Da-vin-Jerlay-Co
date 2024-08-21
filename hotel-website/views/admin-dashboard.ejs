@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        #admin-details {
+            margin-top: 50px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .search-bar {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+
+    <main>
+        <section id="admin-details">
+            <h1>Welcome, <%= user.nickname %> (Admin)!</h1>
+            <p>Email: <%= user.email %></p>
+        </section>
+
+        <section id="search-bar">
+            <input type="text" id="search-input" class="search-bar" onkeyup="filterTable()" placeholder="Search for names, emails, etc..">
+            <button onclick="generateReport()" class="btn">Generate Report</button>
+        </section>
+
+        <section id="booking-management">
+            <h2>Booking Management</h2>
+            <table id="booking-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nickname</th>
+                        <th>Email</th>
+                        <th>Room Type</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Status</th>
+                        <th>Booking Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bookings.forEach(booking => { %>
+                        <tr>
+                            <td><%= booking.id %></td>
+                            <td><%= booking.nickname %></td>
+                            <td><%= booking.email %></td>
+                            <td><%= booking.room_type %></td>
+                            <td><%= booking.check_in %></td>
+                            <td><%= booking.check_out %></td>
+                            <td><%= booking.status %></td>
+                            <td><%= booking.booking_date %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="user-management">
+            <h2>User Management</h2>
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nickname</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.nickname %></td>
+                            <td><%= user.email %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="event-management">
+            <h2>Event Management</h2>
+            <table id="event-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Event Name</th>
+                        <th>Event Date</th>
+                        <th>Max Tickets</th>
+                        <th>Available Tickets</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% events.forEach(event => { %>
+                        <tr>
+                            <td><%= event.id %></td>
+                            <td><%= event.name %></td>
+                            <td><%= event.event_date %></td>
+                            <td><%= event.max_tickets %></td>
+                            <td><%= event.available_tickets %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="booked-events-management">
+            <h2>Booked Events Management</h2>
+            <table id="booked-events-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nickname</th>
+                        <th>Email</th>
+                        <th>Event Name</th>
+                        <th>Adults</th>
+                        <th>Children</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bookedEvents.forEach(event => { %>
+                        <tr>
+                            <td><%= event.id %></td>
+                            <td><%= event.nickname %></td>
+                            <td><%= event.email %></td>
+                            <td><%= event.event_name %></td>
+                            <td><%= event.adults %></td>
+                            <td><%= event.children %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+    <script>
+        function filterTable() {
+            const input = document.getElementById('search-input');
+            const filter = input.value.toLowerCase();
+            const tables = ['booking-table', 'user-table', 'event-table', 'booked-events-table'];
+            
+            tables.forEach(tableId => {
+                const table = document.getElementById(tableId);
+                const tr = table.getElementsByTagName('tr');
+                for (let i = 1; i < tr.length; i++) {
+                    tr[i].style.display = 'none';
+                    const td = tr[i].getElementsByTagName('td');
+                    for (let j = 0; j < td.length; j++) {
+                        if (td[j] && td[j].innerHTML.toLowerCase().indexOf(filter) > -1) {
+                            tr[i].style.display = '';
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+
+        function generateReport() {
+            fetch('/generate-report', {
+                method: 'POST',
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data); // Notify the user of the result
+            })
+            .catch(error => {
+                alert('Error generating report: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>

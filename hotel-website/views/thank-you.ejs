@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<style>
+     .marg{
+        text-align: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        
+    }
+    .mart{
+        margin-top: 60px;
+    }
+</style>
+<body>
+    <%- include('header') %>
+
+    <main class="mart">
+        <section id="thank-you">
+            <h1 class="marg">Thank You for Booking!</h1>
+            <% if (ticketData) { %>
+                <p class="marg">Event: <%= ticketData.event %></p>
+                <p class="marg">Name: <%= ticketData.firstName %> <%= ticketData.lastName %></p>
+                <p class="marg">Adults: <%= ticketData.adults %></p>
+                <p class="marg">Children: <%= ticketData.children %></p>
+            <% } else if (bookingData) { %>
+                <p class="marg">Room Type: <%= bookingData.roomType %></p>
+                <p class="marg">Check-in: <%= bookingData.checkIn %></p>
+                <p class="marg">Check-out: <%= bookingData.checkOut %></p>
+
+            <% } else { %>
+                <p class="marg">Thank you for your booking!</p>
+            <% } %>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
